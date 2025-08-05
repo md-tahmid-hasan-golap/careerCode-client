@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router";
+import { AuthContext } from "../../firebase/FirebaseAuthProvider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  // console.log(user);
+  const handleSignout = () => {
+    logOut()
+      .then(() => {
+        Swal.fire({
+          title: "LogOut Success!",
+          icon: "success",
+          draggable: true,
+          timer: 1500,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const links = (
     <>
       <li>
@@ -42,10 +60,21 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end">
-        <NavLink to="/register" className={"btn"}>
-          Register
-        </NavLink>
+      <div className="navbar-end gap-5">
+        {user ? (
+          <button onClick={handleSignout} className="btn">
+            Sign Out
+          </button>
+        ) : (
+          <>
+            <NavLink to="/register" className={"btn"}>
+              Register
+            </NavLink>
+            <NavLink to="/signIn" className={"btn"}>
+              signIn
+            </NavLink>
+          </>
+        )}
       </div>
     </div>
   );
