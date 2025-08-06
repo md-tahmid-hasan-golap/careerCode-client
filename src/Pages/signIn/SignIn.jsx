@@ -3,9 +3,20 @@ import { Link } from "react-router";
 import { AuthContext } from "../../firebase/FirebaseAuthProvider";
 import SignInLotte from "../../assets/lotties/signIn.json.json";
 import Lottie from "lottie-react";
+import { FcGoogle } from "react-icons/fc";
 
 const SignIn = () => {
-  const { signInUser } = useContext(AuthContext);
+  const { signInUser, signInWithGoogle } = useContext(AuthContext);
+
+  const handleSignInWithGoogle = () => {
+    signInWithGoogle()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const handleSignIn = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -24,7 +35,7 @@ const SignIn = () => {
       });
   };
   return (
-    <div className="hero min-h-screen bg-base-200 px-4 py-10">
+    <div className="hero min-h-screen bg-base-200 px-4 py-10 my-10 rounded-lg">
       <div className="hero-content flex-col-reverse lg:flex-row-reverse gap-10 w-full max-w-6xl">
         {/* Lottie Animation */}
         <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
@@ -76,6 +87,13 @@ const SignIn = () => {
                 Login
               </button>
             </form>
+            <button
+              onClick={handleSignInWithGoogle}
+              className="btn btn-outline w-full mt-2 text-sm"
+            >
+              <FcGoogle size={25} /> Sign in with Google
+            </button>
+
             <p className="py-2 text-center">
               Dont’t Have An Account ?{" "}
               <Link to="/register" className="text-blue-500">

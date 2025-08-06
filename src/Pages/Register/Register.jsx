@@ -3,8 +3,18 @@ import registerLottie from "../../assets/lotties/Login.json";
 import { useContext } from "react";
 import { AuthContext } from "../../firebase/FirebaseAuthProvider";
 import { Link } from "react-router";
+import { FcGoogle } from "react-icons/fc";
 const Register = () => {
-  const { creatUser } = useContext(AuthContext);
+  const { creatUser, signInWithGoogle } = useContext(AuthContext);
+  const handleSignInWithGoogle = () => {
+    signInWithGoogle()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const handleRegister = (e) => {
     e.preventDefault(); // Prevent page reload
 
@@ -27,7 +37,7 @@ const Register = () => {
   };
 
   return (
-    <div className="hero min-h-screen bg-base-200 px-4 py-10">
+    <div className="hero min-h-screen bg-base-200 px-4 py-10 my-10 rounded-lg">
       <div className="hero-content flex-col-reverse lg:flex-row-reverse gap-10 w-full max-w-6xl">
         {/* Lottie Animation */}
         <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
@@ -81,6 +91,12 @@ const Register = () => {
                 Register
               </button>
             </form>
+            <button
+              onClick={handleSignInWithGoogle}
+              className="btn btn-outline w-full mt-2 text-sm"
+            >
+              <FcGoogle size={25} /> Sign in with Google
+            </button>
             <p className="py-2 text-center">
               Already Have In Account ?{" "}
               <Link to="/signIn" className="text-blue-500">

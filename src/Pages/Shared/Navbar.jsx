@@ -22,9 +22,16 @@ const Navbar = () => {
   };
   const links = (
     <>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          isActive
+            ? "bg-blue-600 text-white font-bold px-4 py-2 rounded"
+            : "text-gray-600 hover:text-blue-600 px-4 py-2"
+        }
+      >
+        Home
+      </NavLink>
     </>
   );
   return (
@@ -62,15 +69,32 @@ const Navbar = () => {
       </div>
       <div className="navbar-end gap-5">
         {user ? (
-          <button onClick={handleSignout} className="btn">
-            Sign Out
-          </button>
+          <div className="flex items-center gap-3">
+            {/* Profile Image */}
+            {user.photoURL ? (
+              <img
+                src={user.photoURL}
+                alt="Profile"
+                className="w-10 h-10 rounded-full border"
+                title={user.displayName}
+              />
+            ) : (
+              <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-white font-bold">
+                ?
+              </div>
+            )}
+
+            {/* Logout Button */}
+            <button onClick={handleSignout} className="btn">
+              Sign Out
+            </button>
+          </div>
         ) : (
           <>
-            <NavLink to="/register" className={"btn"}>
+            <NavLink to="/register" className="btn">
               Register
             </NavLink>
-            <NavLink to="/signIn" className={"btn"}>
+            <NavLink to="/signIn" className="btn">
               signIn
             </NavLink>
           </>
