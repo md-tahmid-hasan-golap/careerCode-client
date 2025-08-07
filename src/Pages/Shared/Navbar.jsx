@@ -32,6 +32,16 @@ const Navbar = () => {
       >
         Home
       </NavLink>
+      <NavLink
+        to="/myApplications"
+        className={({ isActive }) =>
+          isActive
+            ? "bg-blue-600 text-white font-bold px-4 py-2 rounded"
+            : "text-gray-600 hover:text-blue-600 px-4 py-2"
+        }
+      >
+        MyApplications
+      </NavLink>
     </>
   );
   return (
@@ -62,7 +72,7 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-3xl">jobBox</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>

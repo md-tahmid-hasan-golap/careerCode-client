@@ -31,6 +31,7 @@ const FirebaseAuthProvider = ({ children }) => {
 
   //   signInWithGoogle
   const signInWithGoogle = () => {
+    setLoading(true);
     return signInWithPopup(auth, googleAuthProvider);
   };
 
@@ -43,7 +44,7 @@ const FirebaseAuthProvider = ({ children }) => {
     const unSuscribe = onAuthStateChanged(auth, (crueentUser) => {
       setUser(crueentUser);
       setLoading(false);
-      console.log(crueentUser);
+      // console.log(crueentUser);
     });
     return () => {
       unSuscribe();

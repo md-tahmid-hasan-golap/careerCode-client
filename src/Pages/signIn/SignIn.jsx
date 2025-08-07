@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../firebase/FirebaseAuthProvider";
 import SignInLotte from "../../assets/lotties/signIn.json.json";
 import Lottie from "lottie-react";
@@ -7,11 +7,15 @@ import { FcGoogle } from "react-icons/fc";
 
 const SignIn = () => {
   const { signInUser, signInWithGoogle } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state || "/";
 
   const handleSignInWithGoogle = () => {
     signInWithGoogle()
       .then((result) => {
         console.log(result);
+        navigate(from);
       })
       .catch((error) => {
         console.log(error);
@@ -29,6 +33,7 @@ const SignIn = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
+        navigate(from);
       })
       .catch((error) => {
         console.log(error);
